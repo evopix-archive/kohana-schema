@@ -148,6 +148,10 @@ class Kohana_Schema_Builder {
 			{
 				$grammar = 'MySQL';
 			}
+			elseif ($grammar === 'PostgreSQL')
+			{
+				$grammar = 'Postgres';
+			}
 		}
 
 		$driver = "Schema_Grammar_$grammar";

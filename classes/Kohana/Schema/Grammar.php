@@ -423,6 +423,10 @@ abstract class Kohana_Schema_Grammar {
 			{
 				$driver = 'mysqli';
 			}
+			elseif ($driver === 'postgresql')
+			{
+				$driver = 'pdo_pgsql';
+			}
 
 			$data = [
 				'dbname'   => $connection['connection']['database'],
@@ -467,6 +471,7 @@ abstract class Kohana_Schema_Grammar {
 			case 'pdo_sqlsrv':
 				$driver = 'PDOSqlsrv';
 				break;
+			case 'postgresql':
 			case 'pdo_pgsql':
 				$driver = 'PDOPgSql';
 				break;
