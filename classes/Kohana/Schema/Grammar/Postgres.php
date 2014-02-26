@@ -7,21 +7,21 @@ abstract class Kohana_Schema_Grammar_Postgres extends Schema_Grammar {
 	 *
 	 * @var string
 	 */
-	protected $wrapper = '"%s"';
+	protected $_wrapper = '"%s"';
 
 	/**
 	 * The possible column modifiers.
 	 *
 	 * @var array
 	 */
-	protected $modifiers = array('increment', 'nullable', 'default');
+	protected $_modifiers = array('increment', 'nullable', 'default');
 
 	/**
 	 * The columns available as serials.
 	 *
 	 * @var array
 	 */
-	protected $serials = array('big_integer', 'integer');
+	protected $_serials = array('big_integer', 'integer');
 
 	/**
 	 * Compile the query to determine if a table exists.
@@ -298,6 +298,17 @@ abstract class Kohana_Schema_Grammar_Postgres extends Schema_Grammar {
 	}
 
 	/**
+	 * Create the column definition for a json type.
+	 *
+	 * @param  Fluent $column
+	 * @return string
+	 */
+	protected function type_json(Fluent $column)
+	{
+		return 'json';
+	}
+
+	/**
 	 * Create the column definition for a integer type.
 	 *
 	 * @param  Fluent $column
@@ -503,7 +514,7 @@ abstract class Kohana_Schema_Grammar_Postgres extends Schema_Grammar {
 	 */
 	protected function modify_increment(Schema_Blueprint $blueprint, Fluent $column)
 	{
-		if (in_array($column->type, $this->serials) && $column->auto_increment)
+		if (in_array($column->type, $this->_serials) && $column->auto_increment)
 		{
 			return ' primary key';
 		}

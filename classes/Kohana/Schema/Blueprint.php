@@ -365,6 +365,17 @@ class Kohana_Schema_Blueprint {
 	}
 
 	/**
+	 * Create a new json column on the table.
+	 *
+	 * @param  string $column
+	 * @return Fluent
+	 */
+	public function json($column)
+	{
+		return $this->_add_column('json', $column);
+	}
+
+	/**
 	 * Create a new integer column on the table.
 	 *
 	 * @param  string $column
