@@ -12,7 +12,7 @@ class Kohana_Schema {
 	 */
 	public static function table($table, Closure $callback, $db = NULL)
 	{
-		return (new Schema_Builder($table, $callback, $db))->table($table, $callback);
+		return (new Schema_Builder($db))->table($table, $callback);
 	}
 
 	/**
@@ -25,7 +25,7 @@ class Kohana_Schema {
 	 */
 	public static function create($table, Closure $callback, $db = NULL)
 	{
-		return (new Schema_Builder($table, $callback, $db))->create($table, $callback);
+		return (new Schema_Builder($db))->create($table, $callback);
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Kohana_Schema {
 	 */
 	public static function drop($table, $db = NULL)
 	{
-		return (new Schema_Builder($table, NULL, $db))->drop($table);
+		return (new Schema_Builder($db))->drop($table);
 
 	}
 
@@ -51,7 +51,7 @@ class Kohana_Schema {
 	 */
 	public static function rename($from, $to, $db = NULL)
 	{
-		return (new Schema_Builder($from, NULL, $db))->rename($from, $to);
+		return (new Schema_Builder($db))->rename($from, $to);
 
 	}
 

@@ -30,10 +30,8 @@ class Kohana_Schema_Builder {
 	 */
 	protected $_connection;
 
-	public function __construct($table, Closure $callback = NULL, $db = NULL)
+	public function __construct($db = NULL)
 	{
-		$this->_table = $table;
-
 		$db = $db ?: Database::$default;
 		$this->_db = ($db instanceof Database) ? $db : Database::instance($db);
 
