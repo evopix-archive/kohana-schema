@@ -35,7 +35,7 @@ class Kohana_Schema_Builder {
 		$this->_table = $table;
 
 		$db = $db ?: Database::$default;
-		$this->_db = Database::instance($db);
+		$this->_db = ($db instanceof Database) ? $db : Database::instance($db);
 
 		$this->_connection = Kohana::$config->load('database')->$db;
 		$this->_connection['db'] = $this->_db;
