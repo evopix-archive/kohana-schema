@@ -53,7 +53,6 @@ class Kohana_Schema_Blueprint {
 	{
 		foreach ($this->to_sql($connection, $grammar) as $statement)
 		{
-			echo Debug::vars($statement);
 			$connection['db']->query(NULL, $statement);
 		}
 	}
