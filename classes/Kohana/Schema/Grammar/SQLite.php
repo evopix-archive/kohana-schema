@@ -30,7 +30,7 @@ abstract class Kohana_Schema_Grammar_SQLite extends Schema_Grammar {
 	 */
 	public function compile_table_exists()
 	{
-		return "SELECT * FROM sqlite_master WHERE type = 'table' AND name = ?";
+		return "SELECT * FROM sqlite_master WHERE type = 'table' AND name = :table";
 	}
 
 	/**

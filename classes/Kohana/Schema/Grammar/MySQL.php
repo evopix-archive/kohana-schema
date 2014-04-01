@@ -30,7 +30,7 @@ abstract class Kohana_Schema_Grammar_MySQL extends Schema_Grammar {
 	 */
 	public function compile_table_exists()
 	{
-		return 'SELECT * FROM information_schema.tables WHERE table_schema = ? AND table_name = ?';
+		return 'SELECT * FROM information_schema.tables WHERE table_schema = :db AND table_name = :table';
 	}
 
 	/**

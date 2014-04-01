@@ -35,10 +35,36 @@ class Kohana_Schema_Builder {
 		$db = $db ?: Database::$default;
 		$this->_db = ($db instanceof Database) ? $db : Database::instance($db);
 
-		$this->_connection = Kohana::$config->load('database')->$db;
+		$reflected_db = new ReflectionClass($this->_db);
+		$property = $reflected_db->getProperty('_config');
+		$property->setAccessible(TRUE);
+		$config = $property->getValue($this->_db);
+
+		$this->_connection = $config;
 		$this->_connection['db'] = $this->_db;
 
 		$this->_grammar = $this->_get_schema_grammar();
+	}
+
+	/**
+	 * Determine if the given table exists.
+	 *
+	 * @param string $table
+	 * @return bool
+	 */
+	public function has_table($table)
+	{
+		$sql = $this->_grammar->compile_table_exists();
+
+		$params = [
+			':table' => $table,
+			':db'    => $this->_get_db_name(),
+		];
+
+		$query = DB::query(Database::SELECT, $sql);
+		$query->parameters($params);
+
+		return count($query->execute($this->_db)) > 0;
 	}
 
 	/**
@@ -112,6 +138,32 @@ class Kohana_Schema_Builder {
 	protected function build(Schema_Blueprint $blueprint)
 	{
 		$blueprint->build($this->_connection, $this->_grammar);
+	}
+
+	protected function _get_db_name()
+	{
+		$connection = $this->_connection['connection'];
+
+		$db_name = '';
+		if ($this->_connection['type'] === 'PDO')
+		{
+			$dsn_params = explode(';', $connection['dsn']);
+			foreach ($dsn_params as $param)
+			{
+				list($name, $value) = explode('=', $param);
+				if ($name === 'dbname')
+				{
+					$db_name = $value;
+					break;
+				}
+			}
+		}
+		else
+		{
+			$db_name = $this->_connection['connection']['database'];
+		}
+
+		return $db_name;
 	}
 
 	protected function _get_schema_grammar()

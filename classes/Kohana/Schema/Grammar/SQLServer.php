@@ -30,7 +30,7 @@ abstract class Kohana_Schema_Grammar_SQLServer extends Schema_Grammar {
 	 */
 	public function compile_table_exists()
 	{
-		return "SELECT * FROM sysobjects WHERE type = 'U' AND name = ?";
+		return "SELECT * FROM sysobjects WHERE type = 'U' AND name = :table";
 	}
 
 	/**

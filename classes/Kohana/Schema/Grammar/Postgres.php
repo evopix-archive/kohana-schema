@@ -30,7 +30,7 @@ abstract class Kohana_Schema_Grammar_Postgres extends Schema_Grammar {
 	 */
 	public function compile_table_exists()
 	{
-		return 'SELECT * FROM information_schema.tables WHERE table_name = ?';
+		return "SELECT * FROM information_schema.tables WHERE table_name = :table";
 	}
 
 	/**
@@ -41,7 +41,7 @@ abstract class Kohana_Schema_Grammar_Postgres extends Schema_Grammar {
 	 */
 	public function compile_column_exists($table)
 	{
-		return "SELECT column_name FROM information_schema.columns WHERE table_name = '$table'";
+		return "SELECT column_name FROM information_schema.columns WHERE table_name = :table";
 	}
 
 	/**
