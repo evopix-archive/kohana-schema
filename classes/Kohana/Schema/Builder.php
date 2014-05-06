@@ -36,9 +36,11 @@ class Kohana_Schema_Builder {
 		$this->_db = ($db instanceof Database) ? $db : Database::instance($db);
 
 		$reflected_db = new ReflectionClass($this->_db);
-		$property = $reflected_db->getProperty('_config');
+		$property = $reflected_db->getProperty('_instance');
 		$property->setAccessible(TRUE);
-		$config = $property->getValue($this->_db);
+		$config_key = $property->getValue($this->_db);
+		$config = Kohana::$config->load('database')->$config_key;
+
 
 		$this->_connection = $config;
 		$this->_connection['db'] = $this->_db;
