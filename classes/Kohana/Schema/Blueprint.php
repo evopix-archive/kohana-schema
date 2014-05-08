@@ -158,7 +158,33 @@ class Kohana_Schema_Blueprint {
 
 		$column = new Fluent($attributes);
 
-		return $this->_add_command('modify_column', compact('column'));
+		$this->_add_command('modify_column', compact('column'));
+
+		return $column;
+	}
+
+	/**
+	 * Indicate that the nullable attribute of a given column should be modified.
+	 *
+	 * @param  string $column
+	 * @param  bool   $nullable
+	 * @return Fluent
+	 */
+	public function modify_nullable($column, $nullable)
+	{
+		return $this->_add_command('modify_nullable', compact('column', 'nullable'));
+	}
+
+	/**
+	 * Indicate that the default attribute of a given column should be modified.
+	 *
+	 * @param  string $column
+	 * @param  mixed  $default
+	 * @return Fluent
+	 */
+	public function modify_default($column, $default)
+	{
+		return $this->_add_command('modify_default', compact('column', 'default'));
 	}
 
 	/**

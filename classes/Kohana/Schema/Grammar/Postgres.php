@@ -175,6 +175,60 @@ abstract class Kohana_Schema_Grammar_Postgres extends Schema_Grammar {
 	}
 
 	/**
+	 * Compile a modify column command.
+	 *
+	 * @param  Schema_Blueprint $blueprint
+	 * @param  Fluent           $command
+	 * @param  array            $connection
+	 * @return string
+	 */
+	public function compile_modify_nullable(Schema_Blueprint $blueprint, Fluent $command, array $connection)
+	{
+		$column   = $command->column;
+		$nullable = $command->nullable;
+		$sql      = $this->wrap($column);
+		$table    = $this->wrap_table($blueprint);
+
+		if ($nullable)
+		{
+			$sql .= ' drop not null';
+		}
+		else
+		{
+			$sql .= ' set not null';
+		}
+
+		return 'alter table '.$table.' alter column '.$sql;
+	}
+
+	/**
+	 * Compile a modify column command.
+	 *
+	 * @param  Schema_Blueprint $blueprint
+	 * @param  Fluent           $command
+	 * @param  array            $connection
+	 * @return string
+	 */
+	public function compile_modify_default(Schema_Blueprint $blueprint, Fluent $command, array $connection)
+	{
+		$column  = $command->column;
+		$default = $command->default;
+		$sql     = $this->wrap($column);
+		$table   = $this->wrap_table($blueprint);
+
+		if ($default === FALSE)
+		{
+			$sql .= ' drop default';
+		}
+		else
+		{
+			$sql .= ' set default '.$this->_get_default_value($default);
+		}
+
+		return 'alter table '.$table.' alter column '.$sql;
+	}
+
+	/**
 	 * Compile a drop primary key command.
 	 *
 	 * @param  Schema_Blueprint $blueprint
