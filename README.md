@@ -11,7 +11,7 @@
 - [Adding Indexes](#adding-indexes)
 - [Foreign Keys](#foreign-keys)
 - [Dropping Indexes](#dropping-indexes)
-- [Storage Engines](#storage-engines)
+- [Storage Engines](#storage-engines
 
 <a name="introduction"></a>
 ## Introduction
